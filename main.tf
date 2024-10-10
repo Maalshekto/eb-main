@@ -35,7 +35,7 @@ resource "aws_s3_bucket" "eb-artifact-store" {
 
 resource "aws_codepipeline" "my_pipeline" {
   name     = "EBMainPipeline"
-  role_arn = aws_iam_role.codepipeline_role.arn
+  role_arn = aws_iam_role.codepipeline_role.arn     
 
   artifact_store {
     location = "maalshelto-eb-artifact-store"  
@@ -82,20 +82,40 @@ resource "aws_codepipeline" "my_pipeline" {
 resource "aws_iam_role" "codepipeline_role" {
   name = "CodePipelineRole"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "codepipeline.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+  assume_role_policy = data.aws_iam_policy_document.codepipeline_assume_role_policy.json
 }
-EOF
+
+resource "aws_iam_policy" "codepipeline_s3_policy" {
+  name        = "CodePipelineS3Policy"
+  description = "Policy for CodePipeline to access S3"
+  
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject",
+          "s3:ListBucket",
+        ]
+        Resource = [
+          "arn:aws:s3:::maalshelto-eb-artifact-store",
+          "arn:aws:s3:::maalshelto-eb-artifact-store/*",
+          "arn:aws:s3:::maalshelto-eb-prod",
+          "arn:aws:s3:::maalshelto-eb-prod/*",
+        ]
+      }
+    ]
+  })
 }
+
+resource "aws_iam_policy_attachment" "codepipeline_s3_attachment" {
+  name       = "codepipeline_s3_attachment"
+  policy_arn = aws_iam_policy.codepipeline_s3_policy.arn
+  roles      = [aws_iam_role.codepipeline_role.name]
+}
+
 
 # N'oubliez pas d'ajouter les permissions nécessaires à la role
