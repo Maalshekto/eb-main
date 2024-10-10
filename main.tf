@@ -26,7 +26,15 @@ resource "aws_s3_bucket" "eb_prod" {
     Name        = "maalshelto-eb-prod"
     Environment = "production"
   }
+}
 
+resource "aws_s3_bucket_public_access_block" "eb_prod_block" {
+  bucket = aws_s3_bucket.eb_prod.id
+
+  block_public_acls       = false
+  ignore_public_acls      = false
+  block_public_policy     = false
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_website_configuration" "eb_prod_website" {
