@@ -41,6 +41,23 @@ resource "aws_s3_bucket_website_configuration" "eb_prod_website" {
   }
 }
 
+resource "aws_s3_bucket_policy" "eb_prod_policy" {
+  bucket = aws_s3_bucket.eb_prod.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = "*"
+        Action = "s3:GetObject"
+        Resource = "${aws_s3_bucket.eb_prod.arn}/*"
+      }
+    ]
+  })
+}
+
+
 resource "aws_s3_bucket" "eb-artifact-store" {
   bucket = "maalshelto-eb-artifact-store"  # Nom du bucket S3 de déploiement
 
@@ -152,6 +169,8 @@ resource "aws_iam_policy" "codepipeline_s3_policy" {
     ]
   })
 }
+
+
 
 resource "aws_iam_policy_attachment" "codepipeline_s3_attachment" {
   name       = "codepipeline_s3_attachment"
