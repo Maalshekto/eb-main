@@ -68,7 +68,6 @@ resource "aws_codepipeline" "my_pipeline" {
         Owner      = "Maalshekto"  # Remplacez par le propriétaire
         Repo       = "my-website-repo"       # Remplacez par le nom du repo
         Branch     = "master"                   # Branche source
-        OAuthToken = var.github_token          # Token GitHub
         ConnectionArn      = aws_codestarconnections_connection.github_connection.arn
       }
     }
