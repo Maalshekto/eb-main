@@ -8,7 +8,7 @@ terraform {
   backend "s3" {
     bucket         = "terraform-backend-thomas"          # Nom de votre bucket S3
     key            = "eb-prod.state"      # Chemin du fichier d'état
-    region         = "eu-west-1"          # Votre région
+    region         = "us-east-2"          # Votre région
     #dynamodb_table = "terraform-lock"     # Pour le verrouillage de l'état
     encrypt        = true                 # Chiffrement
   }
