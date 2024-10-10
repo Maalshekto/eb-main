@@ -66,7 +66,7 @@ resource "aws_codepipeline" "my_pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      version         = "2"
+      version         = "1"
       input_artifacts = ["SourceOutput"]
       configuration = {
         BucketName = aws_s3_bucket.eb_prod.bucket
