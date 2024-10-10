@@ -17,7 +17,7 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.9.7
+          terraform_version: 1.0.0
       - name: Configure AWS Credentials
         run: |
           mkdir -p ~/.aws  # Créer le répertoire .aws s'il n'existe pas
