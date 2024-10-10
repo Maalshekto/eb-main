@@ -79,6 +79,17 @@ resource "aws_codepipeline" "my_pipeline" {
   }
 }
 
+data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["codepipeline.amazonaws.com"]
+    }
+  }
+}
+
 resource "aws_iam_role" "codepipeline_role" {
   name = "CodePipelineRole"
 
