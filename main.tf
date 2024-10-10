@@ -56,7 +56,7 @@ resource "aws_codepipeline" "my_pipeline" {
       configuration = {
         Owner      = "Maalshekto"  # Remplacez par le propriétaire
         Repo       = "my-website-repo"       # Remplacez par le nom du repo
-        Branch     = "main"                   # Branche source
+        Branch     = "master"                   # Branche source
         OAuthToken = var.github_token          # Token GitHub
       }
     }
