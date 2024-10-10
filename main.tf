@@ -111,7 +111,7 @@ resource "aws_iam_policy" "codepipeline_s3_policy" {
   description = "Policy for CodePipeline to access S3"
   
   policy = jsonencode({
-    Version = "2024-10-10"
+    Version = "2012-10-17"
     Statement = [
       {
         Effect = "Allow"
@@ -119,7 +119,7 @@ resource "aws_iam_policy" "codepipeline_s3_policy" {
           "s3:PutObject",
           "s3:GetObject",
           "s3:DeleteObject",
-          "s3:ListBucket",
+          "s3:ListBucket"
         ]
         Resource = [
           "arn:aws:s3:::maalshelto-eb-artifact-store",
