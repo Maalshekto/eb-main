@@ -41,11 +41,6 @@ resource "aws_codestarconnections_connection" "github_connection" {
   name     = "MyGitHubConnection"
   provider_type = "GitHub"  
   # Configurez ici les paramètres d'authentification pour GitHub
-  connection_properties {
-    # Par exemple, si vous utilisez un OAuth Token, cela pourrait être une autre façon d'établir la connexion.
-    # Utilisez vos variables ou secrets pour gérer les informations sensibles
-    ConnectionStatus = "Connected"
-  }
 }
 
 
