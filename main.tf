@@ -33,12 +33,12 @@ resource "aws_s3_bucket" "eb-artifact-store" {
 
 resource "aws_codestarconnections_connection" "github_connection" {
   name     = "MyGitHubConnection"
-  provider = "GitHub"  
+  provider = "github"  
   # Configurez ici les paramètres d'authentification pour GitHub
   connection_properties {
     # Par exemple, si vous utilisez un OAuth Token, cela pourrait être une autre façon d'établir la connexion.
     # Utilisez vos variables ou secrets pour gérer les informations sensibles
-    "ConnectionStatus" = "Connected"
+    ConnectionStatus = "Connected"
   }
 }
 
@@ -67,7 +67,8 @@ resource "aws_codepipeline" "my_pipeline" {
         Owner      = "Maalshekto"  # Remplacez par le propriétaire
         Repo       = "my-website-repo"       # Remplacez par le nom du repo
         Branch     = "master"                   # Branche source
-        ConnectionArn = aws_codestarconnections_connection.github_connection.arn
+        OAuthToken = var.github_token          # Token GitHub
+        ConnectionArn      = aws_codestarconnections_connection.github_connection.arn
       }
     }
   }
