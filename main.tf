@@ -10,12 +10,6 @@ terraform {
     #dynamodb_table = "terraform-lock"     # Pour le verrouillage de l'état
     encrypt        = true                 # Chiffrement
   }
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"  # Utilisez la version appropriée
-    }
-  }
 }
 
 
