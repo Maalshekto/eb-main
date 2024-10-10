@@ -90,6 +90,17 @@ resource "aws_codepipeline" "my_pipeline" {
     location = "maalshelto-eb-artifact-store"  
     type     = "S3"
   }
+  trigger {
+    provider_type = "CodeStarSourceConnection"
+    git_configuration {
+        source_action_name = "Source"
+        push {
+          branches {
+            includes = [ master ]
+          }  
+        }
+    }
+  }
 
   stage {
     name = "Source"
@@ -126,6 +137,7 @@ resource "aws_codepipeline" "my_pipeline" {
     }
   }
 }
+
 
 data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
   statement {
