@@ -5,10 +5,10 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "eb_prod" {
-  bucket = "eb-prod"  # Nom du bucket S3 de déploiement
+  bucket = "maalshelto-eb-prod"  # Nom du bucket S3 de déploiement
 
   tags = {
-    Name        = "eb-prod"
+    Name        = "maalshelto-eb-prod"
     Environment = "production"
   }
 }
