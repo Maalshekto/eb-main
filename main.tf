@@ -1,7 +1,5 @@
 provider "aws" {
   region = "eu-west-1"  # Changez selon votre région
-  #access_key              = var.aws_access_key
-  #secret_key              = var.aws_secret_key
 }
 
 terraform {
@@ -49,7 +47,7 @@ resource "aws_codepipeline" "my_pipeline" {
       category        = "Source"
       owner           = "ThirdParty"
       provider        = "GitHub"
-      version         = "1"
+      version         = "2"
       output_artifacts = ["SourceOutput"]
 
     #TODO : Variabilize Github Source Repo
@@ -68,7 +66,7 @@ resource "aws_codepipeline" "my_pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      version         = "1"
+      version         = "2"
       input_artifacts = ["SourceOutput"]
       configuration = {
         BucketName = aws_s3_bucket.eb_prod.bucket
