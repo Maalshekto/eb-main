@@ -65,10 +65,9 @@ resource "aws_codepipeline" "my_pipeline" {
 
     #TODO : Variabilize Github Source Repo
       configuration = {
-        Owner      = "Maalshekto"  # Remplacez par le propriétaire
-        Repo       = "my-website-repo"       # Remplacez par le nom du repo
-        Branch     = "master"                   # Branche source
-        ConnectionArn      = aws_codestarconnections_connection.github_connection.arn
+        FullRepositoryId    = "maalshekto/my-website-repo"       # Remplacez par le nom du repo
+        BranchName          = "master"                   # Branche source
+        ConnectionArn       = aws_codestarconnections_connection.github_connection.arn
       }
     }
   }
