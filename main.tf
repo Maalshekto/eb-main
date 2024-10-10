@@ -181,7 +181,15 @@ resource "aws_iam_policy" "codepipeline_s3_policy" {
           "codestar-connections:GetConnection"
         ]
         Resource = aws_codestarconnections_connection.github_connection.arn
-      }
+      },
+      {
+        Effect = "Allow"
+        Action: [                
+                "cloudwatch:*",
+        ]
+        Resource =  "*"
+            
+        },
     ]
   })
 }
