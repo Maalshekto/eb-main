@@ -56,11 +56,11 @@ resource "aws_codepipeline" "my_pipeline" {
   stage {
     name = "Source"
     action {
-      name            = "GitHubSource"
+      name            = "Source"
       category        = "Source"
-      owner           = "ThirdParty"
-      provider        = "GitHub"
-      version         = "2"
+      owner           = "AWS"
+      provider        = "CodeStarSourceConnection"
+      version         = "1"
       output_artifacts = ["SourceOutput"]
 
     #TODO : Variabilize Github Source Repo
