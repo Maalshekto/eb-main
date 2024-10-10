@@ -73,7 +73,7 @@ resource "aws_codepipeline" "my_pipeline" {
       configuration = {
         BucketName = aws_s3_bucket.eb_prod.bucket
         Extract    = "true"
-        ObjectKey  = "path/to/deployment.zip"  # Spécifiez le chemin de votre artefact
+        ObjectKey  = "."  # Spécifiez le chemin de votre artefact
       }
     }
   }
