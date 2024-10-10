@@ -111,8 +111,7 @@ resource "aws_codepipeline" "my_pipeline" {
       configuration = {
         FullRepositoryId    = "maalshekto/my-website-repo"       # Remplacez par le nom du repo
         BranchName          = "master"                   # Branche source
-        ConnectionArn       = aws_codestarconnections_connection.github_connection.arn
-        dete
+        ConnectionArn       = aws_codestarconnections_connection.github_connection.arn        
       }
     }
   }
