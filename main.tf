@@ -72,7 +72,6 @@ resource "aws_s3_bucket" "eb-artifact-store" {
 resource "aws_codestarconnections_connection" "github_connection" {
   name     = "EBProdGitHubConnection"
   provider_type = "GitHub"  
-  # Configurez ici les paramètres d'authentification pour GitHub
 }
 
 
@@ -87,12 +86,13 @@ resource "aws_codepipeline" "my_pipeline" {
   }
   trigger {
     provider_type = "CodeStarSourceConnection"
+    
     git_configuration {
         source_action_name = "Source"
         push {
-          branches {
-            includes = [ "master" ]
-          }  
+        #  branches {
+        #    includes = [ "master" ]
+        #  }  
         }
     }
   }
@@ -112,6 +112,7 @@ resource "aws_codepipeline" "my_pipeline" {
         FullRepositoryId    = "maalshekto/my-website-repo"       # Remplacez par le nom du repo
         BranchName          = "master"                   # Branche source
         ConnectionArn       = aws_codestarconnections_connection.github_connection.arn
+        dete
       }
     }
   }
