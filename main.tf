@@ -24,6 +24,15 @@ resource "aws_s3_bucket" "eb_prod" {
   }
 }
 
+resource "aws_s3_bucket" "eb-artifact-store" {
+  bucket = "maalshelto-eb-artifact-store"  # Nom du bucket S3 de déploiement
+
+  tags = {
+    Name        = "maalshelto-eb-artifact-store"
+    Environment = "pipeline"
+  }
+}
+
 resource "aws_codepipeline" "my_pipeline" {
   name     = "EBMainPipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
