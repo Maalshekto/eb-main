@@ -38,7 +38,7 @@ resource "aws_codepipeline" "my_pipeline" {
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
-    location = "eb-artifact-store"  
+    location = "maalshelto-eb-artifact-store"  
     type     = "S3"
   }
 
