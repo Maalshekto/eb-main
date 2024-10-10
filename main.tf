@@ -21,7 +21,7 @@ terraform {
 
 resource "aws_s3_bucket" "eb_prod" {
   bucket = "maalshelto-eb-prod"  # Nom du bucket S3 de déploiement
-  
+
   tags = {
     Name        = "maalshelto-eb-prod"
     Environment = "production"
