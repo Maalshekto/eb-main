@@ -38,7 +38,7 @@ resource "aws_s3_bucket" "eb-artifact-store" {
 }
 
 resource "aws_codestarconnections_connection" "github_connection" {
-  name     = "MyGitHubConnection"
+  name     = "EBProdGitHubConnection"
   provider_type = "GitHub"  
   # Configurez ici les paramètres d'authentification pour GitHub
 }
@@ -111,7 +111,7 @@ resource "aws_iam_policy" "codepipeline_s3_policy" {
   description = "Policy for CodePipeline to access S3"
   
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version = "2024-10-10"
     Statement = [
       {
         Effect = "Allow"
@@ -127,7 +127,15 @@ resource "aws_iam_policy" "codepipeline_s3_policy" {
           "arn:aws:s3:::maalshelto-eb-prod",
           "arn:aws:s3:::maalshelto-eb-prod/*",
         ]
-      }
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "codestar-connections:UseConnection",
+          "codestar-connections:GetConnection"
+        ]
+        Resource = aws_codestarconnections_connection.github_connection.arn
+      },
     ]
   })
 }
