@@ -79,6 +79,7 @@ resource "aws_codepipeline" "my_pipeline" {
   name     = "EBMainPipeline"
   role_arn = aws_iam_role.codepipeline_role.arn     
   pipeline_type = "V2"
+  execution_mode = "QUEUED"
 
   artifact_store {
     location = "maalshelto-eb-artifact-store"  
