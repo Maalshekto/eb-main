@@ -56,10 +56,10 @@ resource "aws_codepipeline" "my_pipeline" {
   stage {
     name = "Source"
     action {
-      name            = "GitHub"
+      name            = "GitHubSource"
       category        = "Source"
       owner           = "ThirdParty"
-      provider        = "CodeStarSourceConnection"
+      provider        = "GitHub"
       version         = "2"
       output_artifacts = ["SourceOutput"]
 
