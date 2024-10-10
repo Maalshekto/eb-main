@@ -113,6 +113,8 @@ resource "aws_codepipeline" "my_pipeline" {
         FullRepositoryId    = "maalshekto/my-website-repo"       # Remplacez par le nom du repo
         BranchName          = "master"                   # Branche source
         ConnectionArn       = aws_codestarconnections_connection.github_connection.arn        
+        OutputArtifactFormat = "CODE_ZIP"
+        DetectChanges = "true"
       }
     }
   }
@@ -185,11 +187,10 @@ resource "aws_iam_policy" "codepipeline_s3_policy" {
       {
         Effect = "Allow"
         Action =  [                
-                "cloudwatch:*",
+          "cloudwatch:*",
         ]
-        Resource =  "*"
-            
-        },
+        Resource =  "*"      
+      },
     ]
   })
 }
