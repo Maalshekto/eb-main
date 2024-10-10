@@ -91,7 +91,7 @@ resource "aws_codepipeline" "my_pipeline" {
         source_action_name = "Source"
         push {
           branches {
-            includes = [ master ]
+            includes = [ "master" ]
           }  
         }
     }
