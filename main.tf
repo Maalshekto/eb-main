@@ -21,10 +21,23 @@ terraform {
 
 resource "aws_s3_bucket" "eb_prod" {
   bucket = "maalshelto-eb-prod"  # Nom du bucket S3 de déploiement
-
+  
   tags = {
     Name        = "maalshelto-eb-prod"
     Environment = "production"
+  }
+
+}
+
+resource "aws_s3_bucket_website_configuration" "eb_prod_website" {
+  bucket = aws_s3_bucket.eb_prod.id
+
+  index_document {
+    suffix = "index.html"  # Page d'accueil
+  }
+
+  error_document {
+    key = "error.html"  # Page d'erreur
   }
 }
 
