@@ -184,7 +184,7 @@ resource "aws_iam_policy" "codepipeline_s3_policy" {
       },
       {
         Effect = "Allow"
-        Action: [                
+        Action =  [                
                 "cloudwatch:*",
         ]
         Resource =  "*"
