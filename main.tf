@@ -106,11 +106,11 @@ resource "aws_codepipeline" "my_pipeline" {
       owner           = "AWS"
       provider        = "CodeStarSourceConnection"
       version         = "1"
-      output_artifacts = ["SourceOutput"]
+      output_artifacts = ["SourceArtifact"]
 
     #TODO : Variabilize Github Source Repo
       configuration = {
-        FullRepositoryId    = "maalshekto/my-website-repo"       # Remplacez par le nom du repo
+        FullRepositoryId    = "Maalshekto/my-website-repo"       # Remplacez par le nom du repo
         BranchName          = "master"                   # Branche source
         ConnectionArn       = aws_codestarconnections_connection.github_connection.arn        
         OutputArtifactFormat = "CODE_ZIP"
@@ -126,7 +126,7 @@ resource "aws_codepipeline" "my_pipeline" {
       owner           = "AWS"
       provider        = "S3"
       version         = "1"
-      input_artifacts = ["SourceOutput"]
+      input_artifacts = ["SourceArtifact"]
       configuration = {
         BucketName = aws_s3_bucket.eb_prod.bucket
         Extract    = "true"
