@@ -4,6 +4,17 @@ provider "aws" {
   secret_key              = var.aws_secret_key
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "terraform-backend-thomas "          # Nom de votre bucket S3
+    key            = "eb-prod.state"      # Chemin du fichier d'état
+    region         = "eu-west-1"          # Votre région
+    #dynamodb_table = "terraform-lock"     # Pour le verrouillage de l'état
+    encrypt        = true                 # Chiffrement
+  }
+}
+
+
 resource "aws_s3_bucket" "eb_prod" {
   bucket = "maalshelto-eb-prod"  # Nom du bucket S3 de déploiement
 
