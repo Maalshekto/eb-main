@@ -49,7 +49,7 @@ resource "aws_codepipeline" "my_pipeline" {
       category        = "Source"
       owner           = "ThirdParty"
       provider        = "GitHub"
-      version         = "2"
+      version         = "1"
       output_artifacts = ["SourceOutput"]
 
     #TODO : Variabilize Github Source Repo
