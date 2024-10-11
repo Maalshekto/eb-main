@@ -1,0 +1,50 @@
+name: Destroy Infrastructure
+
+on:
+  workflow_dispatch:  # Allows manual execution of the workflow
+  schedule:
+    - cron: '0 20 * * *'  # Automatically runs every day at 8 PM
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest  # Specifies the environment to run the job
+
+    steps:
+      # Checks out the code from the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Sets up Terraform in the workflow
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.7  # Specify the Terraform version to use
+
+      # Initializes Terraform and downloads necessary providers
+      - name: Initialize Terraform
+        env:
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+        run: terraform init  
+
+      # Checks if there are any resources in the Terraform state
+      - name: Check Terraform State
+        id: check_state  
+        run: |
+          if [ -z "$(terraform state list)" ]; then
+            echo "No resources found in state."  # Log message if no resources are found
+            echo "deploy=false" >> $GITHUB_ENV  # Set environment variable to indicate no resources
+          else
+            echo "Resources found in state."  # Log message if resources are found
+            echo "deploy=true" >> $GITHUB_ENV  # Set environment variable to indicate resources exist
+          fi
+
+      # Only runs if resources are found in the state
+      - name: Destroy Terraform
+        if: env.deploy == 'true'  
+        run: terraform destroy -auto-approve  # Destroy the resources without confirmation
+
+      # Runs if no resources are found
+      - name: Skip Destroy
+        if: env.deploy == 'false'  
+        run: echo "No resources to destroy, skipping."  # Inform that there are no resources to destroy
