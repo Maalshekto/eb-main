@@ -12,9 +12,13 @@ terraform {
   }
 }
 
+###
+# S3 Configurations
+###
 
+# S3 Bucket for deployment 
 resource "aws_s3_bucket" "eb_prod" {
-  bucket = "maalshelto-eb-prod"  # Nom du bucket S3 de déploiement
+  bucket = "maalshelto-eb-prod"  
 
   tags = {
     Name        = "maalshelto-eb-prod"
@@ -22,6 +26,7 @@ resource "aws_s3_bucket" "eb_prod" {
   }
 }
 
+# S3 Bucket Access block for deployment - allow external access 
 resource "aws_s3_bucket_public_access_block" "eb_prod_block" {
   bucket = aws_s3_bucket.eb_prod.id
 
@@ -31,6 +36,8 @@ resource "aws_s3_bucket_public_access_block" "eb_prod_block" {
   restrict_public_buckets = false
 }
 
+# S3 Bucket Website configurations for deployment 
+# Generate static website using index.html and error.html 
 resource "aws_s3_bucket_website_configuration" "eb_prod_website" {
   bucket = aws_s3_bucket.eb_prod.id
 
