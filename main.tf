@@ -25,7 +25,9 @@ terraform {
 # S3 Bucket for deployment 
 resource "aws_s3_bucket" "eb_prod" {
   bucket = "maalshelto-eb-prod"  
-
+   
+  # This allows the bucket to be deleted even if it contains objects
+  force_destroy = true
   tags = {
     Name        = "maalshelto-eb-prod"
     Environment = "production"
@@ -75,7 +77,9 @@ resource "aws_s3_bucket_policy" "eb_prod_policy" {
 
 resource "aws_s3_bucket" "eb-artifact-store" {
   bucket = "maalshelto-eb-artifact-store"  # Nom du bucket S3 de déploiement
-
+  
+  # This allows the bucket to be deleted even if it contains objects
+  force_destroy = true  
   tags = {
     Name        = "maalshelto-eb-artifact-store"
     Environment = "pipeline"
