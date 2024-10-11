@@ -60,7 +60,8 @@ resource "aws_s3_bucket_website_configuration" "eb_prod_website" {
 
 resource "aws_s3_bucket_policy" "eb_prod_policy" {
   bucket = aws_s3_bucket.eb_prod.id
-
+  depends_on = [aws_s3_bucket_public_access_block.eb_prod_block]
+  
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
