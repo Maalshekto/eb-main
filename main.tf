@@ -108,9 +108,9 @@ resource "aws_codepipeline" "my_pipeline" {
     git_configuration {
         source_action_name = "Source"
         push {
-        #  branches {
-        #    includes = [ "master" ]
-        #  }  
+          branches {
+            includes = [ "master" ]
+          }  
         }
     }
   }
